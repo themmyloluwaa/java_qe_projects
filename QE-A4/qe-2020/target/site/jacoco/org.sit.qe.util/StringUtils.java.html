@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StringUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">qe-2020-week2</a> &gt; <a href="index.source.html" class="el_package">org.sit.qe.util</a> &gt; <span class="el_source">StringUtils.java</span></div><h1>StringUtils.java</h1><pre class="source lang-java linenums">package org.sit.qe.util;
+
+import java.util.*;
+
+<span class="nc" id="L5">public class StringUtils {</span>
+
+
+    private static final String EMPTY = &quot;&quot;;
+<span class="nc" id="L9">    private static final Map&lt;Character, Integer &gt; HEX_VALUES = new HashMap&lt;&gt;();</span>
+    static {
+<span class="nc" id="L11">        HEX_VALUES.put('0', 0);</span>
+<span class="nc" id="L12">        HEX_VALUES.put('1', 1);</span>
+<span class="nc" id="L13">        HEX_VALUES.put('2', 2);</span>
+<span class="nc" id="L14">        HEX_VALUES.put('3', 3);</span>
+<span class="nc" id="L15">        HEX_VALUES.put('4', 4);</span>
+<span class="nc" id="L16">        HEX_VALUES.put('5', 5);</span>
+<span class="nc" id="L17">        HEX_VALUES.put('6', 6);</span>
+<span class="nc" id="L18">        HEX_VALUES.put('7', 7);</span>
+<span class="nc" id="L19">        HEX_VALUES.put('8', 8);</span>
+<span class="nc" id="L20">        HEX_VALUES.put('9', 9);</span>
+<span class="nc" id="L21">        HEX_VALUES.put('A', 10);</span>
+<span class="nc" id="L22">        HEX_VALUES.put('B', 11);</span>
+<span class="nc" id="L23">        HEX_VALUES.put('C', 12);</span>
+<span class="nc" id="L24">        HEX_VALUES.put('D', 13);</span>
+<span class="nc" id="L25">        HEX_VALUES.put('E', 14);</span>
+<span class="nc" id="L26">        HEX_VALUES.put('F', 15);</span>
+<span class="nc" id="L27">        HEX_VALUES.put('a', 10);</span>
+<span class="nc" id="L28">        HEX_VALUES.put('b', 11);</span>
+<span class="nc" id="L29">        HEX_VALUES.put('c', 12);</span>
+<span class="nc" id="L30">        HEX_VALUES.put('d', 13);</span>
+<span class="nc" id="L31">        HEX_VALUES.put('e', 14);</span>
+<span class="nc" id="L32">        HEX_VALUES.put('f', 15);</span>
+<span class="nc" id="L33">    }</span>
+
+    /**
+     * The implementation of this method has been adapted from StringUtils in
+     * Apache Commons Lang. The following documentation is taken from the
+     * original implementation.
+     *
+     * &lt;p&gt;Removes one newline from end of a String if it's there,
+     * otherwise leave it alone.  A newline is &amp;quot;{@code \n}&amp;quot;,
+     * &amp;quot;{@code \r}&amp;quot;, or &amp;quot;{@code \r\n}&amp;quot;.&lt;/p&gt;
+     *
+     * &lt;p&gt;NOTE: This method changed in 2.0.
+     * It now more closely matches Perl chomp.&lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * StringUtils.chomp(null)          = null
+     * StringUtils.chomp(&quot;&quot;)            = &quot;&quot;
+     * StringUtils.chomp(&quot;abc \r&quot;)      = &quot;abc &quot;
+     * StringUtils.chomp(&quot;abc\n&quot;)       = &quot;abc&quot;
+     * StringUtils.chomp(&quot;abc\r\n&quot;)     = &quot;abc&quot;
+     * StringUtils.chomp(&quot;abc\r\n\r\n&quot;) = &quot;abc\r\n&quot;
+     * StringUtils.chomp(&quot;abc\n\r&quot;)     = &quot;abc\n&quot;
+     * StringUtils.chomp(&quot;abc\n\rabc&quot;)  = &quot;abc\n\rabc&quot;
+     * StringUtils.chomp(&quot;\r&quot;)          = &quot;&quot;
+     * StringUtils.chomp(&quot;\n&quot;)          = &quot;&quot;
+     * StringUtils.chomp(&quot;\r\n&quot;)        = &quot;&quot;
+     * &lt;/pre&gt;
+     *
+     * @param str  the String to chomp a newline from, may be null
+     * @return String without newline, {@code null} if null String input
+     */
+    public static String chomp(final String str) {
+<span class="nc bnc" id="L65" title="All 4 branches missed.">        if (str == null || str.isEmpty()) {</span>
+<span class="nc" id="L66">            return str;</span>
+        }
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (str.length() == 1) {</span>
+<span class="nc" id="L70">            final char ch = str.charAt(0);</span>
+<span class="nc bnc" id="L71" title="All 4 branches missed.">            if (ch == '\r' || ch == '\n') {</span>
+<span class="nc" id="L72">                return EMPTY;</span>
+            }
+<span class="nc" id="L74">            return str;</span>
+        }
+
+<span class="nc" id="L77">        int lastIdx = str.length() - 1;</span>
+<span class="nc" id="L78">        final char last = str.charAt(lastIdx);</span>
+
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (last == '\n') {</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (str.charAt(lastIdx - 1) == '\r') {</span>
+<span class="nc" id="L82">                lastIdx--;</span>
+            }
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        } else if (last != '\r') {</span>
+<span class="nc" id="L85">            lastIdx++;</span>
+        }
+<span class="nc" id="L87">        return str.substring(0, lastIdx);</span>
+    }
+
+    /**
+     * The implementation of this method has been adapted from StringUtils in
+     * Apache Commons Lang.
+     * The following documentation has been slightly adapted from the original documentation.
+     *
+     * &lt;p&gt;Joins the string representations of the elements in the provided {@code List} 
+     * into a single String containing the provided list of elements. The string representation
+     * of an element is retrieved via {@code Object.toString()}.&lt;/p&gt;
+     *
+     * &lt;p&gt;No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by
+     * empty strings.&lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = &quot;&quot;
+     * StringUtils.join([null], *)             = &quot;&quot;
+     * StringUtils.join([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;], ';')  = &quot;a;b;c&quot;
+     * StringUtils.join([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;], null) = &quot;abc&quot;
+     * StringUtils.join([null, &quot;&quot;, &quot;a&quot;], ';')  = &quot;;;a&quot;
+     * &lt;/pre&gt;
+     *
+     * @param list  the {@code List} of values to join together, may be null
+     * @param separator  the separator character to use
+     * @param startIndex the first index to start joining from.  It is
+     * an error to pass in a start index past the end of the list
+     * @param endIndex the index to stop joining from (exclusive). It is
+     * an error to pass in an end index past the end of the list
+     * @return the joined String, {@code null} if null list input
+     * @since 3.8
+     */
+    public static String join(final List&lt;?&gt; list, final String separator, final int startIndex, final int endIndex) {
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (list == null) {</span>
+<span class="nc" id="L123">            return null;</span>
+        }
+<span class="nc" id="L125">        final int noOfItems = endIndex - startIndex;</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (noOfItems &lt;= 0) {</span>
+<span class="nc" id="L127">            return EMPTY;</span>
+        }
+<span class="nc" id="L129">        final List&lt;?&gt; subList = list.subList(startIndex, endIndex);</span>
+<span class="nc" id="L130">        return join(subList.iterator(), separator);</span>
+    }
+    public static String join(final Iterator&lt;?&gt; iterator, final String separator) {
+
+        // handle null, zero and one elements before building a buffer
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (iterator == null) {</span>
+<span class="nc" id="L136">            return null;</span>
+        }
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (!iterator.hasNext()) {</span>
+<span class="nc" id="L139">            return EMPTY;</span>
+        }
+<span class="nc" id="L141">        final Object first = iterator.next();</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (!iterator.hasNext()) {</span>
+<span class="nc" id="L143">            return Objects.toString(first, &quot;&quot;);</span>
+        }
+
+        // two or more elements
+<span class="nc" id="L147">        final StringBuilder buf = new StringBuilder();</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (first != null) {</span>
+<span class="nc" id="L149">            buf.append(first);</span>
+        }
+
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        while (iterator.hasNext()) {</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">            if (separator != null) {</span>
+<span class="nc" id="L154">                buf.append(separator);</span>
+            }
+<span class="nc" id="L156">            final Object obj = iterator.next();</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">            if (obj != null) {</span>
+<span class="nc" id="L158">                buf.append(obj);</span>
+            }
+<span class="nc" id="L160">        }</span>
+<span class="nc" id="L161">        return buf.toString();</span>
+    }
+
+    /**
+     * This is a reimplementation of the C function cgi_decode presented in
+     * &quot;Software Testing and Analysis: Process, Principles, and Techniques&quot; by
+     * Pezzè and Young.
+     * It decodes a CGI-encoded string. For more information, please refer to the original 
+     * implementation. 
+     *
+     * @param encoded a CGI-encoded string
+     * @return {@code Optional.empty()} in case of an error (malformed input),
+     *         otherwise {@code Optional.of(result)}, where result is the decoded string
+     */
+    public static Optional&lt;String&gt; cgiDecode(String encoded){
+<span class="nc" id="L176">        StringBuilder decodedBuilder = new StringBuilder();</span>
+<span class="nc" id="L177">        boolean ok = true;</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        for(int encodedI = 0; encodedI &lt; encoded.length(); encodedI++){</span>
+<span class="nc" id="L179">            char c = encoded.charAt(encodedI);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">            if(c == '+'){</span>
+<span class="nc" id="L181">                decodedBuilder.append(' ');</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">            } else if(c == '%'){</span>
+<span class="nc" id="L183">                Integer digitHigh = HEX_VALUES.get(encoded.charAt(++encodedI));</span>
+<span class="nc" id="L184">                Integer digitLow = HEX_VALUES.get(encoded.charAt(++encodedI));</span>
+<span class="nc bnc" id="L185" title="All 4 branches missed.">                if(digitHigh == null || digitLow == null){</span>
+<span class="nc" id="L186">                    ok = false;</span>
+                } else {
+<span class="nc" id="L188">                    decodedBuilder.append((char)(16*digitHigh + digitLow));</span>
+                }
+<span class="nc" id="L190">            } else {</span>
+<span class="nc" id="L191">                decodedBuilder.append(c);</span>
+            }
+        }
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        if(ok){</span>
+<span class="nc" id="L195">            return Optional.of(decodedBuilder.toString());</span>
+        } else {
+<span class="nc" id="L197">            return Optional.empty();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

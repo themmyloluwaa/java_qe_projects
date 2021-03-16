@@ -1,0 +1,10 @@
+T1 PARTIAL COVERAGE
+Yes, it is possible to not have full coverage of the code block on that line. In a case where an empty string was passed as the argument, then it won't have full coverage even if the then block gets covered. It is also possible not to get full coverage when only null value is passed to the chomp function. Both cases needs to be covered to fully accept that the method does not cause errors if it's met with these conditions. Between the two conditions, none should be excluded. It is important to test that the method handles various software conditions that can open it to vulnerabilities. 
+
+
+T2 AUGMENTING WITH COMBINATORIAL TESTING
+
+No they don’t cover the same issues. Combinatorial testing cases detected more test cases to carry out on the mean method than test cases ran or covered. Even if the coverage report indicates that all cases of the mean methods was accounted for, it doesn’t give room for cases where the intent was not present. Example of cases it didn’t cover is when the start index is greater than the length of the array, when a non integer value is passed as arguments for the content of the array, or when an invalid start index is passed that is not present in the array. 
+
+To this note, it is very possible to achieve full coverage of the method but still miss out on potential issues by a mile. The solution to H2 has exposed my mind as a developer to situations where my software does what it needs to do but with a huge gap load of vulnerabilities. 
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectionUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">qe-2020-week2</a> &gt; <a href="index.source.html" class="el_package">org.sit.qe.util</a> &gt; <span class="el_source">CollectionUtils.java</span></div><h1>CollectionUtils.java</h1><pre class="source lang-java linenums">package org.sit.qe.util;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+<span class="nc" id="L7">public class CollectionUtils {</span>
+
+    private static final double EPSILON = 1e-6;
+
+    /**
+     * Implementation of insertion sort. Insertion sort can be used in cases
+     * where the input list is almost sorted or small. The list implementation
+     * should provide fast indexed access. Due to its quadratic worst-case
+     * runtime complexity, other sorting algorithms should be used in the
+     * general case.
+     *
+     * @param list the list to be sorted in-place
+     * @param &lt;T&gt; the type of the elements in the list (need to be comparable)
+     * @throws IllegalArgumentException if called with null pointer
+     */
+    static &lt;T extends Comparable&lt;T&gt;&gt; void sort(List&lt;T&gt; list){
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        if(list == null)</span>
+<span class="nc" id="L24">            throw new IllegalArgumentException(&quot;Sort must not be called with &quot; +</span>
+                    &quot;null&quot;);
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        for(int i = 1; i &lt; list.size(); i++){</span>
+<span class="nc" id="L27">            T key = list.get(i);</span>
+<span class="nc" id="L28">            int j = 0;</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">            for(j = i-1; j &gt;= 0; j--){</span>
+<span class="nc" id="L30">                T elem = list.get(j);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">                if(elem.compareTo(key) &gt; 0){ // check if elem &gt; key</span>
+<span class="nc" id="L32">                    list.set(j+1, elem);</span>
+                } else{
+                    break;
+                }
+            }
+<span class="nc" id="L37">            list.set(j+1,key);</span>
+        }
+<span class="nc" id="L39">    }</span>
+
+    /**
+     * This method computes the arithmetic mean of values in a subarray of
+     * the array passed as an argument. It returns {@code Double.NaN} if the 
+     * length of the subarray is zero.
+     *
+     * @param values values for which the mean should be computed
+     * @param begin  the first of the considered subarray
+     * @param length the length of the subarray
+     * @return the arithmetic mean or {@code Double.NaN} if length is zero
+     * @throws IllegalArgumentException if values is null or the subarray length
+     * exceeds the length of the array {@code values}
+     */
+    public static double mean(int[] values, int begin, int length){
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if(length == 0)</span>
+<span class="nc" id="L55">            return Double.NaN;</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if(values == null)</span>
+<span class="nc" id="L57">            throw new IllegalArgumentException(&quot;mean must not be called with &quot; +</span>
+                    &quot;null.&quot;);
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if(begin + length &gt; values.length)</span>
+<span class="nc" id="L60">            throw new IllegalArgumentException(&quot;Boundary mismatch: the &quot; +</span>
+                    &quot;specified length of the subarray exceeds the length of &quot; +
+                    &quot;the array.&quot;);
+<span class="fc" id="L63">        int sum = 0;</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (int i = begin; i &lt; begin + length; i++){</span>
+<span class="fc" id="L65">            sum += values[i];</span>
+        }
+<span class="fc" id="L67">        double mean = (double)sum/length;</span>
+<span class="fc" id="L68">        return mean;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
